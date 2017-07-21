@@ -1,0 +1,47 @@
+MODEL
+REMA Data SCALE PROBLEM Simple Dedrick plot
+COMM
+NFUN  3
+NPAR  4
+NSEC  9
+NCON  6
+PNAM 'A', 'B', 'C', 'D'
+SNAM 'AUCM','AUCR','AUCH','T12M','T12R','T12H','CLM','CLR','CLH'
+END
+TEMP
+ BWM=CON(1)
+ BWR=CON(2)
+ BWH=CON(3)
+ DM=CON(4)
+ DR=CON(5)
+ DH=CON(6)
+ T=X
+ CLM = A*(BWM**B)
+ CLR = A*(BWR**B)
+ CLH = A*(BWH**B)
+ 
+ VM = C*(BWM**D)
+ VR = C*(BWR**D)
+ VH = C*(BWH**D)
+END
+Func 1
+  F = (DM/VM)*EXP(- (CLM/VM)*T)
+end
+Func 2
+  F = (DR/VR)*EXP(- (CLR/VR)*T)
+end
+Func 3
+  F = (DH/VH)*EXP(- (CLH/VH)*T)
+end
+SECO
+ AUCM=(DM/CLM)
+ AUCR=(DR/CLR)
+ AUCH=(DH/CLH)
+ T12M=0.693*VM/CLM
+ T12R=0.693*VR/CLR
+ T12H=0.693*VH/CLH
+ CLM = A*(BWM**B)
+ CLR = A*(BWR**B)
+ CLH = A*(BWH**B)
+END
+EOM

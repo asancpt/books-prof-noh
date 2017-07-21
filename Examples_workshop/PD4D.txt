@@ -1,0 +1,31 @@
+Model
+COMM
+  NDER  2
+  NPAR  4
+  NSEC  1
+  NCON  2
+  PNAM 'IC50', 'kout', 'n', 'P0'
+  SNAM 'T12kd'
+END
+TEMP
+  Cw0  = CON(1)
+  K    = CON(2)
+  t=X
+END
+START
+  Z(1)=P0
+  Z(2)=P0
+END
+DIFF
+  Cw=Cw0*EXP(-K*t)
+  IC=1/(1. + (Cw/IC50)**n)
+  DZ(1) = kout*P0*IC - kout*Z(1)
+  DZ(2) = kout*z(1) - kout*Z(2)
+END
+func 1
+  f = z(2)
+end
+SECO
+  T12kd = 0.693/kout
+END
+EOM

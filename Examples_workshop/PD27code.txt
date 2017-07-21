@@ -1,0 +1,22 @@
+test(){
+	deriv(Aa = -Ka * Aa)
+	deriv(A1 = Ka * Aa - Ke * A1)
+	deriv(P = Kin * (1 + Smax * C ^ n / (C ^ n + SD50 ^ n))- Kout * P)
+	deriv(E= Kout * (P - E))
+	dosepoint(Aa, bioavail = F)
+	dosepoint(A1)
+	C = A1 / V
+	E0 = 5.16
+	Kin = E0 * Kout
+	sequence{E = E0; P = E0}
+	error(EEps = 1)
+	observe(EObs = E + EEps)
+	fixef(Ka = c(, 0.5, ))
+	fixef(V(freeze) = c(, 1, ))
+	fixef(Ke = c(, 0.05, ))
+	fixef(Kout = c(, 0.3, ))
+	fixef(Smax = c(, 2, ))
+	fixef(SD50 = c(, 2, ))
+	fixef(n = c(, 2, ))
+	fixef(F = c(, 0.6, 1))
+}

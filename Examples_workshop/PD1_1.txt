@@ -1,0 +1,13 @@
+test(){
+	
+	AC=Ligand/(1 + Ka*D)
+	ki = KI * 1E7
+	F=RT*(1 - ki * AC/(1 + ki * AC))
+	error(LEps=1)
+	observe(DRObs(Ligand) = F + sqrt(F) * LEps)
+    fixef(KI=c(, 7, ))
+	covariate(Ligand)
+	covariate(Ka)
+	covariate(RT)
+	covariate(D)	
+}

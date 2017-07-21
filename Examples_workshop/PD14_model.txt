@@ -1,0 +1,35 @@
+Model
+ 
+COMM
+  NDER 2
+  NFUN 1 
+  NPAR 4
+  PNAM 'Kin', 'ktol','kout', 'n1'
+END
+ 
+TEMP
+  T=X
+  T1 = 61
+  T2 = 122
+END
+ 
+START
+  Z(1)= Kin/kout
+  Z(2)= Kin/kout
+END
+DIFF
+  ACTH = 1.
+  IF T GE T1 and T LT T2 THEN
+      ACTH = 2.**n1
+  else
+      ACTH = 1.  
+  Endif
+ 
+  DZ(1) = Kin*ACTH - kout*z(2)
+  DZ(2) = Ktol*(Z(1) - Z(2))
+ 
+END
+func 1
+   f = z(1) 
+end
+EOM

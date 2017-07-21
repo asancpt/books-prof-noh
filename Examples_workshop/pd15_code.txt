@@ -1,0 +1,22 @@
+test(){
+	deriv(Aa = - Ka * Aa)
+	deriv(A1 = Ka * Aa - Ke * A1)
+	cycle = 24
+	Kin_mean = 37
+	Kin = Kin_mean + amplt * Kin_mean * cos((2 * 3.14 / cycle) * (t - T0))
+	deriv(E = Kin - Kout * (1 - Imax * C / (C + IC50)) * E)
+	dosepoint(Aa, tlag = Tlag)
+	C = A1 / V
+	sequence{E = Kin / Kout}
+	error(EEps = 1)
+	observe(EObs = E + EEps)
+	fixef(Ka(freeze) = c(, 2, ))
+	fixef(V(freeze) = c(, 1, ))
+	fixef(Ke(freeze) = c(, 0.7, ))
+	fixef(Tlag(freeze) = c(, 8, ))
+	fixef(T0 = c(, 1.5, ))
+	fixef(amplt = c(, 0.04, ))
+	fixef(Kout = c(, 0.9, ))
+	fixef(Imax = c(, 0.1, ))
+	fixef(IC50 = c(, 15, ))
+}

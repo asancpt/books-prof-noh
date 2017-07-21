@@ -1,0 +1,26 @@
+test(){
+	deriv(A1 = - Cl * C - Cl2 * (C - C2) - Cl3 * (C - C3))
+	deriv(A2 = Cl2 * (C - C2))
+	deriv(A3 = Cl3 * (C - C3))
+	deriv(E = (Ktol * P * (1 - Imax * C^gam / (C^gam + IC50^gam)) - Kout * E))
+	deriv(P = Kin - Ktol * P * (1 - Imax * C^gam / (C^gam + IC50^gam)))
+	dosepoint(A1)
+	C = A1 / V
+	C2 = A2 / V2
+	C3 = A3 / V3
+	sequence{E = Kin/Kout; P = Kin/Ktol}
+	error(EEps = 0.0862963)
+	observe(EObs = E + E ^ (0.5) * EEps)
+	fixef(V(freeze) = c(, 1, ))
+	fixef(V2(freeze) = c(, 1.75, ))
+	fixef(V3(freeze) = c(, 3.45, ))
+	fixef(Cl(freeze) = c(, 6.5, ))
+	fixef(Cl2(freeze) = c(, 5.5, ))
+	fixef(Cl3(freeze) = c(, 0.9, ))
+	fixef(Kin = c(, 80, ))
+	fixef(Kout = c(, 30, ))
+	fixef(Imax = c(, 0.8, ))
+	fixef(IC50 = c(, 300, ))
+	fixef(gam = c(, 4, ))
+	fixef(Ktol = c(0, 1, ))
+}

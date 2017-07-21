@@ -1,0 +1,9 @@
+test(){
+	covariate(Cp, Group)
+	Stim1 = 100 * Cp^n1 / (KD^n1 + Cp^n1)
+	Stim2 = 100 * Stim1^n2 / (Beta^n2 + Stim1^n2)
+	E = (Group==1)*Stim1 + (Group==2)*Stim2
+	error(EEps = 1)
+	observe(EObs(Cp) = E + EEps)
+	fixef(KD = c(, 4, ), n1=c(, 2 ,), Beta=c(, 10, ), n2=c(, 3, ))
+}

@@ -1,0 +1,12 @@
+MODEL 
+COMM
+  NPAR 3
+  PNAM 'EMAX', 'EC50', 'E0'
+END
+TEMP
+  C=X
+END
+FUNC1
+  F = E0 - (EMAX*C)/(EC50+C)
+END
+EOM

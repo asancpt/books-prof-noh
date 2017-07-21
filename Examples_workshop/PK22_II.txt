@@ -1,0 +1,60 @@
+MODEL
+REMA Kinetic modeling of auto-induction
+COMM
+  NDER  3
+  NPARM 6
+  PNAMES 'Vc','CLs', 'k12','k21', 'kout', 'E0'
+END
+TEMP
+  T=X
+END
+START
+  Z(1)=0.0
+  Z(2)=0.0
+  Z(3)=E0
+END
+DIFF
+j = 0
+ndose = con(1)
+rema  Count up the number of doses administered up to time x
+do i = 1 to ndose
+j = j+3
+if x <= con(j) then goto red
+endif
+next
+rema  Perform superposition
+red:
+ndose = i-1
+sum=0
+j=0
+if x > 0 then
+  do i = 1 to ndose
+  j = j + 3
+  t = x - con(j)
+  dose = con(j-1)*1000
+  ti = con(j+1) - con(j)
+  del = t - ti
+  denom = max(1.d-20,abs(del))
+  tstar = max(0,del/denom)
+  if x>0 and t = 0 then
+    z(1) = z(1) + dose / Vc
+  endif
+  next
+else
+  ti = con(4) - con(3)
+  z(1) = 0
+  dose = con(2)
+  tstar = 0
+endif
+cld = k12*Vc
+vt  = cld/k21
+ 
+ Input = (dose/ti/Vc)*(1-tstar)
+ DZ(1) = Input -(Cld*Z(1)-Cld*Z(2)+CLs*Z(1)*(1+Z(3)))/Vc
+ DZ(2) = Cld*Z(1)/Vt - Cld*Z(2)/Vt
+ DZ(3) = kout*(E0 + Z(1)) - kout*Z(3)
+END
+Func 1
+  f = z(1)
+end
+EOM

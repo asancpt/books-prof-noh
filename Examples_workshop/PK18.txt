@@ -1,0 +1,39 @@
+MODEL
+REMA Kinetic modeling of ethanol
+COMM
+  NDER 2
+  NPAR 5
+  NCON 2
+  NSEC 3
+  PNAM 'Vc', 'CLD','Vt', 'Vmax', 'Km'
+  SNAM 'Vss', 'MRT', 'T12'
+END
+TEMP
+  T=X
+  Dose1 = CON(1)
+  Tinf1 = CON(2)
+END
+START
+  Z(1)=0
+  Z(2)=0
+END
+DIFF
+  IF T LE Tinf1 THEN
+    Finf1 = Dose1/Tinf1
+  ELSE
+    Finf1 = 0.0
+  ENDIF
+   CL = Vmax/(Km + Z(1))
+   DZ(1)=(Finf1 - CL*Z(1) - CLD*Z(1) + CLD*Z(2))/Vc
+   DZ(2)=(CLD*Z(1) - CLD*Z(2))/Vt
+END
+SECO
+    Vss = Vc + Vt
+    Cli = Vmax/Km
+    MRT = Vss/CLi
+    T12 = 0.693*Vss/CLi
+END
+func 1
+  f = z(1)
+end
+EOM

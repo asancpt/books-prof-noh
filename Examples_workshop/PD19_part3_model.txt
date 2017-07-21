@@ -1,0 +1,15 @@
+test(){
+	covariate(C)
+	A = (C / IC501)^n1
+	B = (C / IC502)^n2
+	E = E0 - (Imax1 * A + Imax2 * B) / (1 + A + B)
+	error(EEps = 1)
+	observe(EObs(C) = E + EEps)
+	fixef(IC501 = c(, 1, ))
+	fixef(IC502 = c(, 1, ))
+	fixef(n1 = c(, 2, ))
+	fixef(n2 = c(, 2, ))
+	fixef(E0 = c(, 10, ))
+	fixef(Imax1 = c(, 10, ))
+	fixef(Imax2 = c(, 5, ))
+}

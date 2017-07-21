@@ -1,0 +1,17 @@
+test(){
+	deriv(Aa = - K * Aa)
+	deriv(A1 = K * Aa - K * A1)
+	deriv(E = Kin * (1 - Imax * C ^ n / (C ^ n + ID50 ^ n)) - Kout * E)
+	dosepoint(Aa)
+	C = A1 / V
+	sequence{E = Kin / Kout}
+	error(EEps = 1)
+	observe(EObs = (E - Kin/Kout) + EEps)
+	fixef(K = c(, 0.15, ))
+	fixef(V(freeze) = c(, 1, ))
+	fixef(Kin(freeze) = c(, 1, ))
+	fixef(Kout = c(, 0.15, ))
+	fixef(Imax = c(, 0.45, ))
+	fixef(ID50 = c(, 0.01, ))
+	fixef(n = c(, 2, ))
+}

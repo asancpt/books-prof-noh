@@ -1,0 +1,46 @@
+MODEL
+  COMM
+  NFUN 6
+  NPAR 3
+  PNAM 'Vmax', 'Km', 'Ki'
+  NCON 6
+END
+
+TEMP
+C = X
+IN0 = CON(1)
+IN10 = CON(2)
+IN25 = CON(3)
+IN50 = CON(4)
+IN75 = CON(5)
+IN100 = CON(6)
+END
+
+FUNC 1
+F = (VMAX*C) / (KM*(1 + IN0*KI) + C)
+END
+
+FUNC 2
+F = (VMAX*C) / (KM*(1 + IN10*KI) + C)
+END
+
+FUNC 3
+F = (VMAX*C) / (KM*(1 + IN25*KI) + C)
+END
+
+FUNC 4
+F = (VMAX*C) / (KM*(1 + IN50*KI) + C)
+END
+
+FUNC 5
+F = (VMAX*C) / (KM*(1 + IN75*KI) + C)
+END
+
+FUNC 6
+F = (VMAX*C) / (KM*(1 + IN100*KI) + C)
+END
+EOM
+
+
+
+

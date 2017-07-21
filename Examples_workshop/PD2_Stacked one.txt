@@ -1,0 +1,18 @@
+test(){
+	
+	AC=10^Ligand
+	I = AC / (IC51 + AC)
+	F = B * (1 - I)
+
+	error(BindingEps=1)
+	observe(BindingObs(Ligand) = F + BindingEps)
+ 	
+	fixef(IC51=c(, 1, ))
+	fixef(B1=c(, 7000, ))
+	fixef(B2=c(, 5500, ))
+	fixef(B3=c(, 3000, ))
+	fixef(B4=c(, 1500, ))
+	stparm(B=B1*(Dataset==1)+B2*(Dataset==2)+B3*(Dataset==3)+B4*(Dataset==4))
+
+	covariate(Ligand,Dataset)	
+}

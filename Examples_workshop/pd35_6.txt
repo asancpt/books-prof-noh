@@ -1,0 +1,24 @@
+test(){
+	
+	deriv(A1 = -Ke * A1)	
+	dosepoint(A1)
+	C = A1 / V
+
+	sequence{E1 = E0; E2=E0; E3=E0; E4=E0; E5=E0; E6=E0}
+	deriv(E1 = (1/Tau) * (E0 * (1 + Emax * C / (C + EC50)) - E1))
+	deriv(E2 = (1/Tau) * (E1 - E2))
+	deriv(E3 = (1/Tau) * (E2 - E3))
+	deriv(E4 = (1/Tau) * (E3 - E4))
+	deriv(E5 = (1/Tau) * (E4 - E5))
+	deriv(E6 = (1/Tau) * (E5 - E6))
+	
+	error(EEps = 1)
+	observe(EObs = E6 + EEps)
+	
+	fixef(V(freeze) = c(, 1, ))
+	fixef(Ke(freeze) = c(, 0.0228, ))
+	fixef(EC50 = c(, 0.12, ))
+	fixef(Emax = c(, 4.5, ))
+	fixef(Tau = c(, 2, ))
+	fixef(E0 = c(, 22, ))
+}

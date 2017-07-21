@@ -1,0 +1,15 @@
+test(){
+	covariate(C,enantiomer)
+	E1 = E0 - (Imax1 * C^n1) / (IC501^n1 + C^n1)
+	E2 = E0 - (Imax2 * C^n2) / (IC502^n2 + C^n2)
+	E = E1 * (enantiomer ==1) + E2 * (enantiomer ==2)
+	error(EEps = 1)
+	observe(EObs(C) = E + EEps)
+	fixef(IC501 = c(, 1, ))
+	fixef(IC502 = c(, 1, ))
+	fixef(n1 = c(, 2, ))
+	fixef(n2 = c(, 4, ))
+	fixef(E0 = c(, 10, ))
+	fixef(Imax1 = c(, 10, ))
+	fixef(Imax2 = c(, 5, ))
+}

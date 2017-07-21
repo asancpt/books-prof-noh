@@ -1,0 +1,42 @@
+MODEL
+COMM
+  NFUN  2
+  NDER  2
+  NCON  2
+  NPAR  6
+  PNAM 'Smax', 'SD50', 'KOUT', 'Kp', 'n1', 'Km'
+END
+TEMP
+  T=X
+  Dos1 = CON(1)
+  Dos2 = CON(2)
+ 
+END
+START
+  Z(1) = 0
+  Z(2) = 0
+END
+DIFF
+ 
+  A1 = Dos1*Kp*t*EXP(-Kp*t)
+  A2 = Dos2*Kp*t*EXP(-Kp*t)
+ 
+  Stim1 = Smax*(A1**n1)/(SD50**n1 + A1**n1)
+  Stim2 = Smax*(A2**n1)/(SD50**n1 + A2**n1)
+ 
+  kut1 = kout/(Km + z(1))
+  kut2 = kout/(Km + z(2))
+ 
+  DZ(1) = Stim1 - kut1*Z(1)
+  DZ(2) = Stim2 - kut2*Z(2) 
+ 
+END
+ 
+func 1
+  F = Z(1)
+End
+func 2
+  F = Z(2)
+End
+ 
+EOM

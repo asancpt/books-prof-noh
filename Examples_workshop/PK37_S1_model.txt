@@ -1,0 +1,12 @@
+MODEL
+  COMM
+   NPARM 4
+   PNAME 'Vmax1', 'Km1', 'Vmax2', 'Km2'
+  END
+  
+  FUNC 1
+  C = X
+  F = Vmax1*C/(Km1 + C) + Vmax2*C/(Km2 + C)
+  END
+EOM
+ 

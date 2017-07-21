@@ -1,0 +1,32 @@
+test(){
+	blt = bl + slope*t
+    Kin=Kout*blt
+	deriv(A1 = - Cl * C - Cl2 * (C - C2))
+	deriv(A2 = Cl2 * (C - C2))
+	deriv(E = (Kin * (blt/M)) - Kout * (1 - Imax * C^n / (C^n + IC50^n)) * E)
+	deriv(M = ktol * (E - M))
+	sequence{E = bl; M = bl}
+	dosepoint(A1)
+	C = A1 / V
+	C2 = A2 / V2
+	error(EEps = 1)
+	observe(EObs = E + EEps)
+	stparm(V = tvV)
+	stparm(V2 = tvV2)
+	stparm(Cl = tvCl)
+	stparm(Cl2 = tvCl2)
+	stparm(Kout = tvKout)
+	stparm(Imax = tvImax)
+	stparm(IC50 = tvIC50)
+	fixef(tvV(freeze) = c(, 108.68, ))
+	fixef(tvV2(freeze) = c(, 404.91, ))
+	fixef(tvCl(freeze) = c(, 34.26, ))
+	fixef(tvCl2(freeze) = c(, 36.65, ))
+	fixef(tvKout = c(0, 0.4, 1))
+	fixef(tvImax = c(0, 0.5, 1))
+	fixef(tvIC50 = c(0, 10, 50))
+	fixef(ktol = c(0, 0.1, 1))
+	fixef(n = c(0, 2, ))
+	fixef(bl = c(, 150, 300))
+	fixef(slope = c(0, 0.05, 0.1 ))	
+}

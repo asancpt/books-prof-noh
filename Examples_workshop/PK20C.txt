@@ -1,0 +1,37 @@
+Model
+REMA Variability in Km
+COMM
+ NDER 3
+ NFUN 3
+ NCON 3
+ NPAR 3
+ PNAM 'V','Vmax', 'Km'
+END
+TEMP
+ Dose1=CON(1)
+ Dose2=CON(2)
+ Dose3=CON(3)
+END
+START
+ Z(1)=Dose1/V
+ Z(2)=Dose2/V
+ Z(3)=Dose3/V
+END
+DIFF
+ Km1 = Km/0.03
+ Km2 = Km/0.01
+ Km3 = Km/0.02
+ DZ(1)=(-Vmax*Z(1)/(Km1 + Z(1)))/V
+ DZ(2)=(-Vmax*Z(2)/(Km2 + Z(2)))/V
+ DZ(3)=(-Vmax*Z(3)/(Km3 + Z(3)))/V
+END
+func 1
+  f = z(1)
+end
+func 2
+  f = z(2)
+end
+func 3
+  f = z(3)
+end
+EOM

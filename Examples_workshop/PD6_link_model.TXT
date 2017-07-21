@@ -1,0 +1,20 @@
+test(){
+	double(flag)
+	deriv(A1 = - Ke * A1)
+	deriv(Ce = Ke0*(C - Ce))
+	dosepoint(A1, tlag=Tdose)
+	C = A1 / V
+	E = E0 + A*Ce
+	sequence{flag=0; 
+		sleep(Tdose); 
+		flag=1;
+}
+	error(EEps = 1)
+	observe(EObs = E + EEps)
+	fixef(V(freeze) = c(, 5.205, ))
+	fixef(Ke(freeze) = c(, 0.456, ))
+	fixef(Ke0 = c(, 0.8, ))
+	fixef(A = c(, 0.019, ))
+	fixef(E0 = c(, 42.2, ))
+	fixef(Tdose = c(, 0.8,))
+}
