@@ -1,0 +1,101 @@
+MODEL
+COMM
+  nfun 5
+  NPAR 6
+  NCON  10
+  PNAM 'a','b', 'c','d', 'e', 'g'
+END
+TEMP
+  T = X
+  Dose1 = CON(1)
+  Dose2 = CON(2)
+  Dose3 = CON(3)
+  Dose4 = CON(4)
+  Dose5 = CON(5)
+  BWmse = CON(6)
+  BWrat = CON(7)
+  BWmky = CON(8)
+  BWdog = CON(9)
+  BWman = CON(10)
+  Cl1 = a*BWmse**b
+  Cl2 = a*BWrat**b
+  Cl3 = a*BWmky**b
+  Cl4 = a*BWdog**b
+  Cl5 = a*BWman**b
+  Cld1 = g*BWmse**b
+  Cld2 = g*BWrat**b
+  Cld3 = g*BWmky**b
+  Cld4 = g*BWdog**b
+  Cld5 = g*BWman**b
+  Vc1 =  c*BWmse**d
+  Vc2 =  c*BWrat**d
+  Vc3 =  c*BWmky**d
+  Vc4 =  c*BWdog**d
+  Vc5 =  c*BWman**d
+  Vt1 =  e*BWmse**d
+  Vt2 =  e*BWrat**d
+  Vt3 =  e*BWmky**d
+  Vt4 =  e*BWdog**d
+  Vt5 =  e*BWman**d
+ K10m = Cl1/Vc1
+ K12m = Cld1/Vc1
+ K21m = Cld1/Vt1
+ R1m=DSQRT((K12m + K21m + K10m)**2 - (4*K21m*K10m))
+ ALPHm=((K12m+K21m+K10m) + R1m)/2
+ BETAm=((K12m+K21m+K10m) - R1m)/2
+ K10r = Cl2/Vc2
+ K12r = Cld2/Vc2
+ K21r = Cld2/Vt2
+ R1r=DSQRT((K12r + K21r + K10r)**2 - (4*K21r*K10r))
+ ALPHr=((K12r+K21r+K10r) + R1r)/2
+ BETAr=((K12r+K21r+K10r) - R1r)/2
+ K10y = Cl3/Vc3
+ K12y = Cld3/Vc3
+ K21y = Cld3/Vt3
+ R1y=DSQRT((K12y + K21y + K10y)**2 - (4*K21y*K10y))
+ ALPHy=((K12y+K21y+K10y) + R1y)/2
+ BETAy=((K12y+K21y+K10y) - R1y)/2
+ K10d = Cl4/Vc4
+ K12d = Cld4/Vc4
+ K21d = Cld4/Vt4
+ R1d=DSQRT((K12d + K21d + K10d)**2 - (4*K21d*K10d))
+ ALPHd=((K12d+K21d+K10d) + R1d)/2
+ BETAd=((K12d+K21d+K10d) - R1d)/2
+ K10n = Cl5/Vc5
+ K12n = Cld5/Vc5
+ K21n = Cld5/Vt5
+ R1n=DSQRT((K12n + K21n + K10n)**2 - (4*K21n*K10n))
+ ALPHn=((K12n+K21n+K10n) + R1n)/2
+ BETAn=((K12n+K21n+K10n) - R1n)/2
+END
+FUNC1
+Am=(Dose1/Vc1)*(ALPHm-K21m)/(ALPHm-BETAm)
+Bm=-1*(Dose1/Vc1)*(BETAm-K21m)/(ALPHm-BETAm)
+AMTm=(Am*EXP(-ALPHm*T)) + (Bm*EXP(-BETAm*T))
+F=AMTm
+END
+FUNC2
+Ar=(Dose2/Vc2)*(ALPHr-K21r)/(ALPHr-BETAr)
+Br=-1*(Dose2/Vc2)*(BETAr-K21r)/(ALPHr-BETAr)
+AMTr=(Ar*DEXP(-ALPHr*T)) + (Br*DEXP(-BETAr*T))
+F=AMTr
+END
+FUNC3
+Ay=(Dose3/Vc3)*(ALPHy-K21y)/(ALPHy-BETAy)
+By=-1*(Dose3/Vc3)*(BETAy-K21y)/(ALPHy-BETAy)
+AMTy=(Ay*EXP(-ALPHy*T)) + (By*EXP(-BETAy*T))
+F=AMTy
+END
+FUNC4
+Ad=(Dose4/Vc4)*(ALPHd-K21d)/(ALPHd-BETAd)
+Bd=-1*(Dose4/Vc4)*(BETAd-K21d)/(ALPHd-BETAd)
+AMTd=(Ad*EXP(-ALPHd*T)) + (Bd*EXP(-BETAd*T))
+F=AMTd
+END
+FUNC5
+An=(Dose5/Vc5)*(ALPHn-K21n)/(ALPHn-BETAn)
+Bn=-1*(Dose5/Vc5)*(BETAn-K21n)/(ALPHn-BETAn)
+AMTn=(An*EXP(-ALPHn*T)) + (Bn*EXP(-BETAn*T))
+F=AMTn
+END
+EOM

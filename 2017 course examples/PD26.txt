@@ -1,0 +1,11 @@
+test(){
+	covariate(dose_grp)	
+	D = dose_grp*exp(-Ke*t)
+	deriv(N = K1 * N - D * Kout * N)
+	sequence{N = 10000}
+	error(NEps = 1)
+	observe(NObs = N + N*NEps)
+	fixef(Ke = c(, 1, ))
+	fixef(K1 = c(, 0.2, ))
+	fixef(Kout = c(, 1, ))
+}

@@ -1,0 +1,24 @@
+test(){
+	covariate(Group)
+	deriv(A1 = - Ke1 * A1)
+	deriv(A2 = - Ke2 * A2)
+	dosepoint(A1)
+	dosepoint(A2)
+	Cag = A1 / V1
+	Cant =A2 / V2
+	E1 = E0 + Emax * Cag^n / (EC50^n + Cag^n)
+	E2 = E0 + Emax * Cag^n / (((EC50^n)*(1 + Cant/ECant)) + Cag^n)
+	E = (((Group==1) * E1) + ((Group==2) * E2))
+	error(EEps = 1)
+	observe(EObs = E + EEps)
+	fixef(V1(freeze) = c(, 1, ))
+	fixef(Ke1(freeze) = c(, 0.1, ))
+	fixef(V2(freeze) = c(, 5, ))
+	fixef(Ke2(freeze) = c(, 0.029, ))
+
+	fixef(EC50 = c(, 90, ))
+	fixef(E0 = c(, 25, ))
+	fixef(Emax = c(, 200, ))
+	fixef(ECant = c(, 4, ))
+	fixef(n = c(, 2, ))
+}

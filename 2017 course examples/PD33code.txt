@@ -1,0 +1,9 @@
+test(){
+	deriv(E = Kin * (1 - Imax) - Kout * E)
+	sequence{E = Kin / Kout}
+	error(EEps = 1)
+	observe(EObs = E + EEps)
+	fixef(Kin = c(, 15.4, 45))
+	fixef(Kout = c(0, 0.42,2 ))
+	fixef(Imax = c(0, 0.8, 1))
+}

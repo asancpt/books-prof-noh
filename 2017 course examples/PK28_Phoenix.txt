@@ -1,0 +1,29 @@
+test(){
+	covariate(Function)	
+	BWm = 0.023
+	BWr = 0.25
+	BWh = 70.0	
+	
+	CLm = A*(BWm^B)
+	CLr = A*(BWr^B)
+	CLh = A*(BWh^B)
+	Vm = C*(BWm^D)
+	Vr = C*(BWr^D)
+	Vh = C*(BWh^D)
+
+	deriv(A1 = - CL * Cp)
+	dosepoint(A1)
+	
+	CL=(CLm*(Function==1) + CLr*(Function==2) + CLh*(Function==3))
+	V =(Vm* (Function==1) +  Vr*(Function==2) +  Vh*(Function==3))
+
+	Cp = A1 / V
+	error(CEps = 1)
+	observe(CObs = Cp + Cp*CEps)
+
+	fixef(A = c(0, 0.5, ))
+	fixef(B = c(0, 0.8, ))
+	fixef(C = c(0, 3.5, ))
+	fixef(D = c(0, 1.5, ))
+
+}

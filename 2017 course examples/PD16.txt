@@ -1,0 +1,21 @@
+test(){
+	covariate(dose_group)
+	deriv(E = Kin - Kout * E - Ke * Cp * E)
+	A1 = A / 400
+	B1 = B / 400
+	C1 = - (A1 + B1)
+	Cpl = max(0,A1 * exp(-alpha * (t-tlag)) + B1 * exp(-beta * (t-tlag)) + C1 * exp(-Ka * (t-tlag)))
+	Cp = (Cpl * dose_group)
+	sequence{E = Kin / Kout}
+	error(EEps = 1)
+	observe(EObs = E + EEps)
+	fixef(Ka(freeze) = c(, 1.934, ))
+	fixef(A(freeze) = c(, 27.47, ))
+	fixef(alpha(freeze) = c(, 0.381, ))
+	fixef(B(freeze) = c(, 0.894, ))
+	fixef(beta(freeze) = c(, 0.0569, ))
+	fixef(tlag(freeze) = c(, 0.328, ))
+	fixef(Kin = c(, 6, ))
+	fixef(Kout = c(, 1, ))
+	fixef(Ke = c(, 0.03, ))
+}

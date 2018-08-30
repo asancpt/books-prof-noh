@@ -1,0 +1,10 @@
+test(){
+	covariate(X)
+	Y = (Beta * Gamma + Alpha * X^Delta) / (Gamma + X^Delta)
+	error(YEps = 1)
+	observe(YObs(X) = Y + YEps)
+	fixef(Alpha = c(, 20, ))
+	fixef(Beta = c(, 1, ))
+	fixef(Gamma = c(, 1000, ))
+	fixef(Delta = c(, 5, ))
+}

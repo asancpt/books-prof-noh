@@ -1,0 +1,33 @@
+MODEL
+
+ rema Simulation model for Clint, ClH
+
+ COMM
+  NFUN  2
+  NPARM 4
+  NCON  1
+  PNAME 'Vmax1', 'Km1', 'Vmax2', 'Km2'
+ END
+
+ TEMP
+  QH = CON(1)
+ END
+
+ FUNC 1
+ rema  This function simulates Clint
+  C = X
+  F = (Vmax1/(Km1 + C) + Vmax2/(Km2 + C)) * 77 * 1.5
+ END
+
+ FUNC 2
+ rema  This function simulates ClH
+  C = X
+  Clint = (Vmax1/(Km1 + C) + Vmax2/(Km2 + C)) * 77 * 1.5
+  F = QH * Clint / (QH + Clint)
+ END
+
+EOM
+
+
+
+

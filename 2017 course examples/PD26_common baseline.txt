@@ -1,0 +1,21 @@
+test(){
+	covariate(dose_grp)	
+	D = dose_grp*exp(-Ke*t)
+	deriv(N = K1 * N * (1 - N/Bmax) - D * Kout * N)
+	
+	#Baseline=((dose_grp==1)*B1 + (dose_grp==2)*B2 + (dose_grp==3)*B3 +
+	#	(dose_grp==4)*B4 + (dose_grp==5)*B5)
+	#sequence{N = Baseline}
+	sequence{N=10000}
+	error(NEps = 1)
+	observe(NObs = N + N*NEps)
+	fixef(Ke = c(, 1, ))
+	fixef(K1 = c(, 0.2, ))
+	fixef(Kout = c(, 1, ))
+	fixef(Bmax = c(, 33000, ))
+	#fixef(B1 = c(5000, 10000,30000 ))
+	#fixef(B2 = c(5000, 10000,30000 ))
+	#fixef(B3 = c(5000, 10000,30000 ))
+	#fixef(B4 = c(5000, 10000,30000 ))
+	#fixef(B5 = c(5000, 10000,30000 ))
+}

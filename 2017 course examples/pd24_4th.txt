@@ -1,0 +1,23 @@
+TITLE
+Logistic regression 
+Model 
+COMM
+  NPAR 5
+  PNAM 'p1','p2','p3','p4','pcp'
+  NVAR 6
+END
+TEMP
+  Cp = DTA(1)
+  S1 = DTA(2)
+  S2 = DTA(3)
+  S3 = DTA(4)
+  S4 = DTA(5)
+END
+FUNC1
+  AL = p1*S1 +p2*S2 + p3*S3 +p4*S4 - pcp*cp
+  EL = EXP(AL)
+  PHAT = EL/(1 + EL)
+  F = PHAT
+  WT = 1/(F*(1. - PHAT))
+END
+EOM

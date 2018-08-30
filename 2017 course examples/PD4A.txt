@@ -1,0 +1,29 @@
+MODEL
+COMM
+ NDER  1
+ NCON  2
+ NPARM 4
+ NSEC  1
+ PNAMES 'IC50', 'kout', 'n', 'P0'
+ SNAMES 'T12kd'
+END
+TEMP
+ Cw0  = CON(1)
+ K    = CON(2)
+ t=X
+END
+START
+ Z(1)=P0
+END
+DIFF
+ Cw=Cw0*EXP(-K*t)
+ Inhib = 1/(1. + (Cw/IC50)**n)
+ DZ(1)=kout*(P0*Inhib - Z(1))
+END
+func 1
+  f  = z(1)
+end
+SECO
+ T12kd = 0.693/kout
+END
+EOM

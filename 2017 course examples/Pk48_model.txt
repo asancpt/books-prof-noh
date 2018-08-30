@@ -1,0 +1,43 @@
+Model
+COMM
+ NDER 3
+ NFUN 3
+ NCON 1
+ NPAR 4
+ NSEC 5
+ PNAM 'V','Vmax', 'Km','Clr'
+ SNAM 'ClM', 'ClM1', 'ClM4', 'ClM10', 'ClM20'
+END
+TEMP
+ Dose1=CON(1)
+END
+START
+ Z(1)=Dose1/V
+ Z(2)=0.
+ Z(3)=0.
+END
+DIFF
+ DZ(1)=(-Vmax*Z(1)/(Km + Z(1)) - Clr*Z(1))/V
+ DZ(2)= Clr*Z(1)
+ DZ(3)= Vmax*Z(1)/(Km + Z(1)) 
+END
+REMA Concentration of drug in plasma
+func 1
+  f = z(1)
+end
+REMA Amount drug in urine
+func 2
+  f = z(2)
+end
+REMA Amount metabolite in urine
+func 3
+  f = z(3)
+end
+SECO
+  ClM = Vmax/KM
+  ClM1 = Vmax/(Km + 1)
+  ClM4 = Vmax/(Km + 4)
+  ClM10 = Vmax/(Km + 10)
+  ClM20 = Vmax/(Km + 20)
+END
+EOM

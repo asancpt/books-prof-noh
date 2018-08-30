@@ -1,0 +1,20 @@
+test(){
+	double(flag)
+	deriv(A1 = - Ke * A1)
+	deriv(E = Kin * (1 + C/EC50) - Kout * E)
+	dosepoint(A1, tlag=Tdose)
+	C = A1 / V
+	sequence{E = Kin / Kout;
+		flag=0; 
+		sleep(Tdose); 
+		flag=1;
+}
+	error(EEps = 1)
+	observe(EObs = E + EEps)
+	fixef(V(freeze) = c(, 5.205, ))
+	fixef(Ke(freeze) = c(, 0.456, ))
+	fixef(Kin = c(, 340, ))
+	fixef(Kout = c(, 5, ))
+	fixef(EC50 = c(, 2285, ))
+	fixef(Tdose = c(, 0.8,))
+}

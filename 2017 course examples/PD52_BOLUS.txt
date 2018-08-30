@@ -1,0 +1,16 @@
+test(){
+	covariate(D)
+	A = D*exp(-Kp*t)
+	Stim = Smax*A^n / (SD50^n + A^n)
+	Kut = Kout / (Km + R)
+	deriv(R = Stim - Kut * R)
+	
+	error(REps = 1)
+	observe(RObs = R + REps)
+	fixef(Kp = c(, 6, )) 
+	fixef(n = c(, 1.7, ))
+	fixef(Km = c(, 0.001, ))
+	fixef(Kout = c(, 30, ))
+	fixef(Smax = c(, 240, ))
+	fixef(SD50 = c(, 1, ))
+}

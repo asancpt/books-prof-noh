@@ -1,0 +1,35 @@
+test(){
+	deriv(A1 = - Cl * C - Cl2 * (C - C2) - Cl3 * (C - C3))
+	deriv(A2 = Cl2 * (C - C2))
+	deriv(A3 = Cl3 * (C - C3))
+	deriv(E = Kin - Kout * (1 + Emax * C^gam / (C^gam + EC50^gam)) * E)
+	dosepoint(A1)
+	C = A1 / V
+	C2 = A2 / V2
+	C3 = A3 / V3
+	sequence{E = Kin / Kout}
+	error(EEps = 0.1)
+	observe(EObs = E + E ^ (0.5) * EEps)
+	stparm(V = tvV)
+	stparm(V2 = tvV2)
+	stparm(V3 = tvV3)
+	stparm(Cl = tvCl)
+	stparm(Cl2 = tvCl2)
+	stparm(Cl3 = tvCl3)
+	stparm(Kin = tvKin)
+	stparm(Kout = tvKout)
+	stparm(Emax = tvEmax)
+	stparm(EC50 = tvEC50)
+	stparm(gam = tvgam)
+	fixef(tvV(freeze) = c(, 1, ))
+	fixef(tvV2(freeze) = c(, 1.75, ))
+	fixef(tvV3(freeze) = c(, 3.45, ))
+	fixef(tvCl(freeze) = c(, 6.5, ))
+	fixef(tvCl2(freeze) = c(, 5.5, ))
+	fixef(tvCl3(freeze) = c(, 0.9, ))
+	fixef(tvKin = c(, 35, ))
+	fixef(tvKout = c(, 3.5, ))
+	fixef(tvEmax = c(, 11, ))
+	fixef(tvEC50 = c(, 400, ))
+	fixef(tvgam = c(, 7.5, ))
+}

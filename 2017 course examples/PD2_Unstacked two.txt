@@ -1,0 +1,19 @@
+test(){
+	AC=10^Ligand
+	I1 = AC / (IC51 + AC)
+	I2 = AC / (IC52 + AC)
+	F = F1 * I1 + (1 - F1) * I2
+	error(BindingEps=1)
+	observe(BindingObs1(Ligand) = B1 * (1 - F) + BindingEps)
+    observe(BindingObs2(Ligand) = B2 * (1 - F) + BindingEps)
+	observe(BindingObs3(Ligand) = B3 * (1 - F)  + BindingEps)
+	observe(BindingObs4(Ligand) = B4 * (1 - F)  + BindingEps)
+	fixef(F1=c(, 1, ))
+	fixef(IC51=c(, 1, ))
+	fixef(IC52=c(, 1, ))
+	fixef(B1=c(, 7000, ))
+	fixef(B2=c(, 5500, ))
+	fixef(B3=c(, 3000, ))
+	fixef(B4=c(, 1500, ))
+	covariate(Ligand)
+}

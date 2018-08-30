@@ -1,0 +1,17 @@
+test(){
+	
+	AC=Ligand/(1 + Ka*D)
+	k1 = K1 * 1.E7
+	k2 = K2 * 1.E6
+	I = F1 * k1 * AC/(1 + k1 * AC) + (1 - F1) * k2 * AC / (1 + K2 * 1E6 * AC)
+	F = RT * (1 - I)
+	error(LEps=1)
+	observe(DRObs(Ligand) = F + sqrt(F) * LEps)
+    fixef(F1=c(0, .8,1))
+	fixef(K1=c(1, 9.5,300 ))
+	fixef(K2=c(0.1, 1.2,100 ))
+	covariate(Ligand)
+	covariate(Ka)
+	covariate(RT)
+	covariate(D)	
+}

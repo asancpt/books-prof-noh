@@ -1,0 +1,24 @@
+test(){
+	covariate(BW)	
+	
+	deriv(A1 = - CL * Cp - CLd * (Cp - Ct))
+	deriv(A2 = CLd * (Cp - Ct))
+	dosepoint(A1)
+	
+	CL = A*(BW^B)
+	Vc = C*(BW^D)
+	CLd = G*(BW^B)
+	Vt = E*(BW^D)
+
+	Cp = A1 / Vc
+	Ct = A2 / Vt
+	error(CEps = 0.1)
+	observe(CObs = Cp + Cp^0.5*CEps)
+
+	fixef(A = c(0, 0.02, ))
+	fixef(B = c(0, 0.7, ))
+	fixef(C = c(0, 0.1, ))
+	fixef(D = c(0, 1.2, ))
+	fixef(E = c(0, 0.8, ))
+	fixef(G = c(0, 0.1, ))
+}

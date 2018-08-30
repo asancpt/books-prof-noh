@@ -1,0 +1,35 @@
+Model 
+REMA Logistic regression of dichotomous thiopental data
+COMM
+  NPAR 2
+  NSEC  2
+  PNAM 'A1','A2'
+  SNAM 'LogODS', 'RRa50'
+  NVAR 3
+END
+
+TEMP
+  CP=DTA(1)
+  S1=1.0
+END
+
+FUNC1
+  AL = A1*S1 - A2*Cp
+  EL = EXP(AL)
+  PHAT = EL/(1 + EL)
+  F = PHAT
+
+if f ne 0 and phat ne 1 then
+  WT = 1/(F*(1. - PHAT))
+else
+  WT = 0
+endif
+
+END
+
+SECO
+  LogODS = A1 - A2*50
+  RRa50 = exp(S(1))
+END
+
+EOM

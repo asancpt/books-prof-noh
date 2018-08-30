@@ -1,0 +1,34 @@
+MODEL
+
+ rema Simulation model for Bioavailability and Extraction across the liver
+
+ COMM
+  NFUN  2
+  NPARM 4
+  NCON  1
+  PNAME 'Vmax1', 'Km1', 'Vmax2', 'Km2'
+ END
+
+ TEMP
+  QH = CON(1)
+ END
+
+ FUNC 1
+ rema  This function simulates Bioavailability (across the liver)
+   C = X
+   Clint = (Vmax1/(Km1 + C) + Vmax2/(Km2 + C)) * 77 * 1.5
+   F = QH / (Clint + QH)
+ END
+
+ FUNC 2
+ rema This function simulates Extraction (across the liver)
+  C = X
+  Clint = (Vmax1/ (Km1 + C) + Vmax2/(Km2 + C)) * 77 * 1.5
+  F = Clint / (QH + Clint)
+ END
+
+EOM
+
+
+
+

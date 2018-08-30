@@ -1,0 +1,22 @@
+test(){
+	deriv(A1 = - Ke * A1)
+	deriv(E = Kin - Kout * (1 + Emax * C / (C + EC50)) * E)
+	dosepoint(A1)
+	C = A1 / V
+	sequence{E = Kin / Kout}
+	error(EEps = 1)
+	observe(EObs = E + EEps)
+	stparm(V = tvV)
+	stparm(Ke = tvKe)
+	stparm(Kin = tvKin * exp(nKin))
+	stparm(Kout = tvKout * exp(nKout))
+	stparm(Emax = tvEmax * exp(nEmax))
+	stparm(EC50 = tvEC50 * exp(nEC50))
+	fixef(tvV(freeze) = c(, 28.6, ))
+	fixef(tvKe(freeze) = c(, 2.8, ))
+	fixef(tvKin = c(, 30, ))
+	fixef(tvKout = c(, 1, ))
+	fixef(tvEmax = c(, 4, ))
+	fixef(tvEC50 = c(, 42, ))
+	ranef(diag(nKin, nKout, nEmax, nEC50) = c(1, 1, 1, 1))
+}

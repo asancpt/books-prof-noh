@@ -1,0 +1,12 @@
+MODEL 
+COMM
+  NPAR 4
+  PNAM 'EMAX', 'EC50', 'n','E0'
+END
+TEMP
+  C=X
+END
+FUNC1
+  F = E0 - (EMAX*(C**n)/((EC50**n)+(C**n)))
+END
+EOM

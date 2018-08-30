@@ -1,0 +1,18 @@
+test(){
+	deriv(Aa = - Ka * Aa)
+	deriv(A1 = Ka * Aa - Ke * A1)
+	dosepoint(Aa, tlag = Tlag)
+	C = A1 / V
+	E = E0 - Imax * C^n / (ID50^n + C^n)
+	secondary(thlKa=ln(2)/Ka, thlK=ln(2)/Ke)
+	error(EEps = 0.1)
+	observe(EObs = E + sqrt(E) * EEps)
+	fixef(Ka = c(, 0.05, ))
+	fixef(V(freeze) = c(, 1, ))
+	fixef(Ke = c(, 0.01, ))
+	fixef(Tlag = c(, 10, ))
+	fixef(ID50 = c(, 1, ))
+	fixef(n = c(, 1, ))
+	fixef(E0(freeze) = c(, 13, ))
+	fixef(Imax = c(, 10, ))
+}

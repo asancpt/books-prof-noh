@@ -1,0 +1,33 @@
+MODEL
+COMM
+ NDER  1
+ NCON  2
+ NPARM 5
+ NSEC  1
+ PNAMES 'IC50', 'kout', 'n', 'P0', 'Tlag'
+ SNAMES 'T12kd'
+END
+TEMP
+ Cw0  = CON(1)
+ K    = CON(2)
+ t=X
+END
+START
+ Z(1)=P0
+END
+DIFF
+  Cw=Cw0*EXP(-K*t)
+  Inhib = 1/(1. + (Cw/IC50)**n)
+IF T LE Tlag THEN
+  DZ(1) = 0.0
+ELSE
+  DZ(1)=kout*(P0*Inhib - Z(1))
+ENDIF
+END
+func 1
+  f = z(1)
+end
+SECO
+ T12kd = 0.693/kout
+END
+EOM
